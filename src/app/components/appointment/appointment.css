@@ -1,0 +1,96 @@
+.appointment-page {
+    background-color: #f4f7f6;
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.appointment-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.appointment-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.appointment-summary, .patient-details-form {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border-left: 4px solid #15C6CC;
+}
+
+.appointment-summary h2, .patient-details-form h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 20px;
+}
+
+.appointment-summary p {
+    margin: 0 0 10px;
+    color: #555;
+    font-size: 16px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.appointment-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.pay-btn, .cancel-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pay-btn {
+    background: linear-gradient(135deg, #4caf50, #45a049);
+    color: white;
+}
+
+.pay-btn:hover {
+    background: linear-gradient(135deg, #45a049, #3d8b40);
+}
+
+.cancel-btn {
+    background: #ff6b6b;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: #ff5252;
+}

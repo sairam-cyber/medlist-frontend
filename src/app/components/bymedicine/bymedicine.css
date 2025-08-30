@@ -1,0 +1,140 @@
+.medicine-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.medicine-header {
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #15C6CC, #0fa3a8);
+    border-radius: 15px;
+    color: white;
+}
+
+.medicine-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.medicine-header p {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    margin: 0 auto 20px;
+    max-width: 600px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 15px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart-button {
+    background-color: #ffd700;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-button:hover {
+    background-color: #ffc400;
+}
+
+.medicine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.medicine-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.medicine-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.medicine-image {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.medicine-info {
+    padding: 20px;
+    flex-grow: 1; /* Pushes footer to the bottom */
+}
+
+.medicine-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.medicine-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0 0 10px;
+}
+
+.medicine-category {
+    font-size: 12px;
+    color: #15C6CC;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.medicine-footer {
+    padding: 0 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.medicine-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.add-to-cart-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #15C6CC, #0fa3a8);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(135deg, #0fa3a8, #0d8a8f);
+    transform: scale(1.05);
+}

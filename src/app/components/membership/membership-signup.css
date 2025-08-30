@@ -1,0 +1,96 @@
+.membership-signup-page {
+    background-color: #f4f7f6;
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.signup-form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.signup-form-header h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+.selected-plan-info {
+    background-color: #e8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #15C6CC;
+    text-align: center;
+}
+
+.selected-plan-info h3 {
+    color: #0d7f83;
+    margin: 0;
+    font-size: 18px;
+}
+
+.membership-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.membership-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.membership-form .full-width {
+    grid-column: 1 / -1;
+}
+
+.membership-form label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.membership-form input,
+.membership-form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.form-actions button {
+    flex: 1;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background-color: #15C6CC;
+    color: white;
+    border: none;
+}
+
+.cancel-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}

@@ -1,26 +1,415 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Navigation Bar */
+.navbar {
+  background-color: #15C6CC;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 70px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.nav-logo a {
+  display: flex;
+  align-items: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  position: relative;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-links a.active-link {
+  color: #fff;
+}
+
+.nav-links a.active-link::after {
+  width: 100%;
+}
+
+.nav-login-mobile {
+  display: none;
+  /* Hidden on desktop */
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-icon {
+  font-size: 1.8rem;
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.cart-icon:hover {
+  color: #fff;
+}
+
+.login-btn, .profile-btn {
+  background-color: white;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.login-btn:hover, .profile-btn:hover {
+  transform: scale(1.05);
+}
+
+.profile-btn {
+  background-color: white;
+  color: #000;
+}
+
+.profile-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #000;
+}
+
+
+/* Integrated Banner Section */
+.integrated-banner {
+  background-color: #F9E095;
+  margin: 20px auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.banner-section {
+  padding: 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.find-doctor-section {
+  background-color: #ffffff;
+  padding: 30px;
+  text-align: center;
+}
+
+.banner-text {
+  flex: 1;
+}
+
+.banner-section h1 {
+  font-size: 35px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.banner-section p {
+  font-size: 20px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.banner-image {
+  flex: 1;
+  text-align: right;
+}
+
+.banner-image img {
+  max-width: auto;
+  height: 130px;
+}
+
+/* Find Doctor Section within Banner */
+.find-doctor-section h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px; /* This is the key property that adds space */
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1; /* Allows the steps to grow and fill the space */
+  min-width: 200px; /* Prevents items from becoming too small */
+}
+
+.step label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.step select,
+.step input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.submit-btn {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0097a7;
+}
+
+/* Specialties Section */
+.specialties {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+}
+
+.specialties h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+.specialties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.specialty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.specialty-card:hover {
+  transform: translateY(-5px);
+}
+
+.specialty-icon {
+  width: 90px;
+  height: 90px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.specialty-icon img {
+  width: 100%;
+  height: auto;
+}
+
+.specialty-card p {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.specialty-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.specialty-link:hover {
+  text-decoration: none;
+}
+
+/* Ask Medica Section */
+.ask-medica {
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #15C6CC;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #000;
+}
+
+.ask-content {
+  width: 90%;
+}
+
+.ask-content h3 {
+  margin-bottom: 10px;
+}
+
+.ask-content p {
+  margin-bottom: 40px;
+  font-size: 20px;
+}
+
+.ask-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.doctor-image {
+  width: 100px;
+  height: 180px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    flex-direction: column;
+    background-color: #15C6CC;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    z-index: 999;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-links li {
+    margin: 15px 0;
+  }
+
+  .nav-login-mobile {
+    display: block !important;
+    margin: 20px 0;
+  }
+
+  .nav-actions {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .integrated-banner {
+    margin: 10px;
+  }
+
+  .banner-section {
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .banner-image {
+    margin-top: 30px;
+  }
+
+  .find-doctor-section {
+    padding: 20px;
+  }
+
+  .steps-container {
+    flex-direction: column;
+  }
+
+  .chatbot {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .chatbot-image {
+    height: 40px;
+    width: 30px;
+  }
+
+  .city-tabs {
+    grid-template-columns: 1fr;
+  }
 }
