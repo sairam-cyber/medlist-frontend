@@ -69,9 +69,11 @@
 }
 
 .test-icon {
-    width: 60px;
-    height: 60px;
+    width: 150px;  /* Increased from 60px */
+    height: 150px; /* Increased from 60px */
     margin: 0 auto 15px;
+    object-fit: cover; /* Ensures the image fills the space well */
+    border-radius: 8px; /* Adds nice rounded corners */
 }
 
 .test-card h3 {

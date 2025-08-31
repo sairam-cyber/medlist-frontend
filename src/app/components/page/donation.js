@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react';
 import Navbar from '../Navbar';
+import QRCodeModal from './QRCodeModal';
 import '../../components/donation/donation.css';
 import { useRouter } from 'next/navigation';
 
 export default function Donation() {
     const [selectedAmount, setSelectedAmount] = useState(500);
     const [formData, setFormData] = useState({ fullName: '', email: '' });
+    const [showQRModal, setShowQRModal] = useState(false);
     const router = useRouter();
 
     const handleAmountChange = (amount) => {
@@ -27,6 +29,10 @@ export default function Donation() {
             return;
         }
         
+        setShowQRModal(true); // Show the QR modal for payment
+    };
+
+    const handlePaymentSuccess = async () => {
         const donationData = {
             ...formData,
             amount: selectedAmount
@@ -42,8 +48,8 @@ export default function Donation() {
             const data = await res.json();
 
             if (res.ok) {
+                setShowQRModal(false);
                 alert(`Thank you, ${formData.fullName}, for your generous donation of ₹${selectedAmount}! Your contribution has been recorded.`);
-                // Optionally, redirect to the home page after a successful donation
                 router.push('/');
             } else {
                 throw new Error(data.message || 'Donation failed. Please try again.');
@@ -57,6 +63,13 @@ export default function Donation() {
     return (
         <div className="donation-page">
             <Navbar />
+            <QRCodeModal
+                show={showQRModal}
+                onClose={() => setShowQRModal(false)}
+                amount={selectedAmount}
+                paymentFor={`Donation to Support Healthcare`}
+                onPaymentSuccess={handlePaymentSuccess}
+            />
             <div className="donation-container">
                 <div className="donation-info">
                     <h1>Support Our Cause</h1>
