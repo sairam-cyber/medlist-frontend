@@ -1,88 +1,123 @@
 'use client';
 
-import React from 'react';
-import Navbar from '../Navbar';
-import '../../components/membership/membership.css';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Navbar from '../Navbar';
+import QRCodeModal from './QRCodeModal'; // Import the modal
+import '../../components/membership/membership-signup.css';
 
-export default function Membership() {
+export default function MembershipSignup() {
     const router = useRouter();
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [formData, setFormData] = useState({
+        fullName: '', email: '', phone: '', address: ''
+    });
+    const [showQRModal, setShowQRModal] = useState(false); // State for the modal
 
-    // This function now saves the selected plan and navigates to the form
-    const handleChoosePlan = (planName, price) => {
-        const selectedPlan = { planName, price };
-        // Use localStorage to pass the selected plan data to the next page
-        localStorage.setItem('selectedPlan', JSON.stringify(selectedPlan));
-        // Navigate to our new signup form page
-        router.push('/membership-signup');
+    useEffect(() => {
+        const planData = localStorage.getItem('selectedPlan');
+        if (planData) {
+            setSelectedPlan(JSON.parse(planData));
+        } else {
+            router.push('/membership');
+        }
+    }, [router]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!selectedPlan) return;
+        // Basic validation
+        if (!formData.fullName || !formData.email || !formData.phone || !formData.address) {
+            alert('Please fill out all fields.');
+            return;
+        }
+        setShowQRModal(true);
+    };
+
+    const handlePaymentSuccess = async () => {
+        setShowQRModal(false);
+        const subscriptionData = {
+            ...formData,
+            planName: selectedPlan.planName,
+            price: selectedPlan.price,
+        };
+
+        try {
+            const res = await fetch('http://localhost:5000/api/memberships/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(subscriptionData)
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                alert(`Payment successful! Subscription to ${selectedPlan.planName} plan is active.`);
+                localStorage.removeItem('selectedPlan');
+                router.push('/');
+            } else {
+                throw new Error(data.message);
+            }
+        } catch (error) {
+            alert(`Subscription failed: ${error.message}`);
+        }
+    };
+
+    if (!selectedPlan) {
+        return <div>Loading...</div>;
+    }
+
     return (
-        <div className="membership-page">
+        <div>
             <Navbar />
-            <header className="membership-header">
-                <h1>Medlist Circle Membership</h1>
-                <p>
-                    Join our exclusive membership program to get the best prices on medicines,
-                    priority access to doctors, and a wide range of health benefits for your entire family.
-                </p>
-            </header>
-
-            <main className="pricing-section">
-                {/* Basic Plan */}
-                <div className="pricing-card">
-                    <div className="card-header">
-                        <h3>Basic</h3>
-                        <p className="price">₹499<span>/year</span></p>
+            <QRCodeModal
+                show={showQRModal}
+                onClose={() => setShowQRModal(false)}
+                amount={selectedPlan.price}
+                paymentFor={`Medlist ${selectedPlan.planName} Plan`}
+                onPaymentSuccess={handlePaymentSuccess}
+            />
+            <div className="membership-signup-page">
+                 <div className="signup-form-container">
+                    <div className="signup-form-header">
+                        <h1>Complete Your Membership</h1>
+                        {selectedPlan && (
+                            <div className="selected-plan-info">
+                                {/* Fixed Apostrophe */}
+                                <h3>You&apos;ve selected the <strong>{selectedPlan.planName}</strong> plan for ₹{selectedPlan.price}/year</h3>
+                            </div>
+                        )}
                     </div>
-                    <ul className="features-list">
-                        <li>Up to 10% off on medicines</li>
-                        <li>Free standard delivery</li>
-                        <li>Basic health consultations</li>
-                        <li>Access to health articles</li>
-                    </ul>
-                    <button className="choose-plan-btn btn-secondary" onClick={() => handleChoosePlan('Basic', 499)}>
-                        Choose Plan
-                    </button>
+                    <form onSubmit={handleSubmit} className="membership-form">
+                        <div className="form-grid">
+                            <div className="form-group">
+                                <label htmlFor="fullName">Full Name</label>
+                                <input type="text" id="fullName" name="fullName" onChange={handleChange} required />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="email">Email Address</label>
+                                <input type="email" id="email" name="email" onChange={handleChange} required />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" onChange={handleChange} required />
+                            </div>
+                            <div className="form-group full-width">
+                                <label htmlFor="address">Full Address</label>
+                                <textarea id="address" name="address" rows="3" onChange={handleChange} required />
+                            </div>
+                        </div>
+                        <div className="form-actions">
+                            <button type="button" className="cancel-btn" onClick={() => router.push('/membership')}>Cancel</button>
+                            <button type="submit" className="submit-btn">Submit & Proceed to Pay</button>
+                        </div>
+                    </form>
                 </div>
-
-                {/* Plus Plan */}
-                <div className="pricing-card popular">
-                    <div className="popular-badge">Most Popular</div>
-                    <div className="card-header">
-                        <h3>Plus</h3>
-                        <p className="price">₹999<span>/year</span></p>
-                    </div>
-                    <ul className="features-list">
-                        <li>Up to 20% off on medicines</li>
-                        <li>Free express delivery</li>
-                        <li>Unlimited doctor consultations</li>
-                        <li>2 free lab tests per year</li>
-                        <li>Priority customer support</li>
-                    </ul>
-                    <button className="choose-plan-btn btn-primary" onClick={() => handleChoosePlan('Plus', 999)}>
-                        Choose Plan
-                    </button>
-                </div>
-
-                {/* Premium Plan */}
-                <div className="pricing-card">
-                    <div className="card-header">
-                        <h3>Premium</h3>
-                        <p className="price">₹1499<span>/year</span></p>
-                    </div>
-                    <ul className="features-list">
-                        <li>Up to 30% off on medicines</li>
-                        <li>Free express delivery</li>
-                        <li>Unlimited specialist consultations</li>
-                        <li>Full body check-up per year</li>
-                        <li>Dedicated health manager</li>
-                    </ul>
-                    <button className="choose-plan-btn btn-secondary" onClick={() => handleChoosePlan('Premium', 1499)}>
-                        Choose Plan
-                    </button>
-                </div>
-            </main>
+            </div>
         </div>
     );
 }

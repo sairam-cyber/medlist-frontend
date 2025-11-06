@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../Navbar';
 import '../../components/labtest/labtest.css';
+import Image from 'next/image'; // Import Image
 
 export default function LabTest() {
     const router = useRouter();
@@ -40,7 +41,15 @@ export default function LabTest() {
                 <div className="test-grid">
                     {labTests.map(test => (
                         <div key={test._id} className="test-card">
-                            <img src={test.icon} alt={`${test.name} icon`} className="test-icon" />
+                            {/* Fixed Image */}
+                            <Image 
+                                src={test.icon} 
+                                alt={`${test.name} icon`} 
+                                className="test-icon" 
+                                width={150} 
+                                height={150}
+                                style={{ objectFit: 'cover' }}
+                            />
                             <h3>{test.name}</h3>
                             <p className="test-price">₹{test.price.toFixed(2)}</p>
                             <button className="book-now-btn" onClick={() => handleBookNow(test.name)}>

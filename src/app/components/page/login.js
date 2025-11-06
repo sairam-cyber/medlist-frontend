@@ -97,7 +97,8 @@ export default function Login() {
                 <div className="extra-links">
                     <Link href="#">Forgot Password?</Link>
                     <span className="separator">|</span>
-                    <Link href="/signup">Don't have an account? Sign Up</Link>
+                    {/* Fixed Apostrophe */}
+                    <Link href="/signup">Don&apos;t have an account? Sign Up</Link>
                 </div>
             </div>
         </div>

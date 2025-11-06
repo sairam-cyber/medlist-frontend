@@ -4,8 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import '../../components/doctorsec/doctorsec.css';
 import { useRouter } from 'next/navigation'; // Make sure useRouter is imported
+import Image from 'next/image'; // Import Image
 
 export default function DoctorSec() {
+    // ... (rest of your state and useEffects) ...
     const [allDoctors, setAllDoctors] = useState([]);
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const [filters, setFilters] = useState({
@@ -18,8 +20,6 @@ export default function DoctorSec() {
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [showAppointmentModal, setShowAppointmentModal] = useState(false);
     
-    // --- CHANGE 1: Modified selectedSlot state ---
-    // From a single string to an object to track both day and time.
     const [selectedSlot, setSelectedSlot] = useState({ day: null, time: null });
 
     const [selectedSpecialty, setSelectedSpecialty] = useState('');
@@ -101,8 +101,6 @@ export default function DoctorSec() {
         setShowAppointmentModal(true);
     };
 
-    // --- CHANGE 2: Updated slot selection logic ---
-    // Now sets both the day and time in our state object.
     const handleSlotSelection = (day, time) => {
         setSelectedSlot({ day, time });
     };
@@ -110,7 +108,6 @@ export default function DoctorSec() {
     const handleCancel = () => {
         setShowAppointmentModal(false);
         setSelectedDoctor(null);
-        // Reset the selected slot state
         setSelectedSlot({ day: null, time: null });
     };
 
@@ -135,6 +132,7 @@ export default function DoctorSec() {
         <div className="doctor-listing-page">
             <Navbar />
             <div className="listing-container">
+                {/* ... (header and filters) ... */}
                 <header className="listing-header">
                     <h1>{selectedSpecialty || 'All Specialists'}</h1>
                     <p>Find the right specialist for your health needs</p>
@@ -193,8 +191,16 @@ export default function DoctorSec() {
                         <div className="doctor-list">
                             {filteredDoctors.map(doctor => (
                                 <div key={doctor._id || doctor.id} className="doctor-card">
-                                    <img src={doctor.image} alt={doctor.name} className="doctor-image" />
+                                    {/* Fixed Image 1 */}
+                                    <Image 
+                                        src={doctor.image} 
+                                        alt={doctor.name} 
+                                        className="doctor-image" 
+                                        width={150} 
+                                        height={150} 
+                                    />
                                     <div className="doctor-info">
+                                        {/* ... (doctor info) ... */}
                                         <div className="doctor-header">
                                             <h2>{doctor.name}</h2>
                                             <div className="rating">⭐ {doctor.rating}</div>
@@ -232,13 +238,20 @@ export default function DoctorSec() {
                         </div>
                         <div className="modal-content">
                             <div className="doctor-summary">
-                                <img src={selectedDoctor.image} alt={selectedDoctor.name} />
+                                {/* Fixed Image 2 */}
+                                <Image 
+                                    src={selectedDoctor.image} 
+                                    alt={selectedDoctor.name} 
+                                    width={80} 
+                                    height={80} 
+                                />
                                 <div>
                                     <h3>{selectedDoctor.name}</h3>
                                     <p>{selectedDoctor.specialty}</p>
                                     <p>💰 {selectedDoctor.fees}</p>
                                 </div>
                             </div>
+                            {/* ... (rest of modal) ... */}
                             <div className="availability-section">
                                 <h3>Select a Time Slot</h3>
                                 <div className="slots-container">
@@ -249,7 +262,6 @@ export default function DoctorSec() {
                                                 <div key={day} className="day-slots">
                                                     <h5>{day}</h5>
                                                     <div className="time-slots">
-                                                        {/* --- CHANGE 3: Logic to check day and time --- */}
                                                         {selectedDoctor.availability.timeSlots.map(time => (
                                                             <button
                                                                 key={time}

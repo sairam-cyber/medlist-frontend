@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // Import useCallback
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import './profile.css';
@@ -17,6 +17,13 @@ export default function Profile() {
         fullName: '', email: '', phone: '', dateOfBirth: '', gender: '',
         address: '', emergencyContact: '', bloodGroup: '', allergies: '', medicalHistory: ''
     });
+
+    // Fixed: Wrapped handleLogout in useCallback
+    const handleLogout = useCallback(() => {
+        localStorage.removeItem('user');
+        alert('You have been logged out successfully.');
+        router.push('/');
+    }, [router]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -44,7 +51,7 @@ export default function Profile() {
         };
 
         fetchUserData();
-    }, [router]);
+    }, [router, handleLogout]); // Fixed: Added handleLogout to dependency array
 
     const handleEditToggle = () => setIsEditing(!isEditing);
 
@@ -66,11 +73,12 @@ export default function Profile() {
 
             if (!res.ok) throw new Error('Failed to update profile.');
 
-            const updatedUser = await res.json();
+            const updatedUser = await res.json(); // This is now used
             
-            // Update the local user state and also the localStorage 'user' object
-            setUser({ ...user, ...editForm }); // Update UI immediately
-            localStorage.setItem('user', JSON.stringify({ ...user, fullName: editForm.fullName, email: editForm.email }));
+            // Fixed: Use updatedUser (from server) to set state
+            setUser(updatedUser); 
+            // Update the session storage with the new name/email from the server response
+            localStorage.setItem('user', JSON.stringify({ ...user, fullName: updatedUser.fullName, email: updatedUser.email }));
 
             setIsEditing(false);
             alert('Profile updated successfully!');
@@ -80,12 +88,8 @@ export default function Profile() {
         }
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('user');
-        alert('You have been logged out successfully.');
-        router.push('/');
-    };
-
+    // ... (rest of your component, handleDownloadReport, and return statement) ...
+    // ... (no changes needed in the JSX for these fixes) ...
     const handleDownloadReport = (reportName, reportDate, labName) => {
         // Create dummy PDF content
         const reportContent = `
