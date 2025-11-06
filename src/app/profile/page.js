@@ -78,7 +78,9 @@ export default function Profile() {
             // Fixed: Use updatedUser (from server) to set state
             setUser(updatedUser); 
             // Update the session storage with the new name/email from the server response
-            localStorage.setItem('user', JSON.stringify({ ...user, fullName: updatedUser.fullName, email: updatedUser.email }));
+            // We update the 'user' object from storage with the new fullName and email
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+            localStorage.setItem('user', JSON.stringify({ ...storedUser, fullName: updatedUser.fullName, email: updatedUser.email }));
 
             setIsEditing(false);
             alert('Profile updated successfully!');

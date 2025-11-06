@@ -9,7 +9,10 @@ const AskMedica = () => {
                 <h3>Ask anything about your health.</h3>
                 <p>Get trusted answers directly from Medisa</p>
                 <Link href="/chatbot">
-                    <button className="ask-button">Ask Medisa</button>
+                    {/* Add suppressHydrationWarning here */}
+                    <button className="ask-button" suppressHydrationWarning={true}>
+                        Ask Medisa
+                    </button>
                 </Link>
             </div>
             <div className="chatbot-image">
