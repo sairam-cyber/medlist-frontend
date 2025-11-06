@@ -31,7 +31,7 @@ export default function DoctorSec() {
 
         const fetchDoctors = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/doctors');
+                const res = await fetch('https://medlist-backend.vercel.app/api/doctors');
                 const data = await res.json();
                 setAllDoctors(data);
             } catch (error) {

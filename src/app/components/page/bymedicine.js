@@ -16,7 +16,7 @@ export default function ByMedicine() {
     useEffect(() => {
         const fetchMedicines = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/medicines');
+                const res = await fetch('https://medlist-backend.vercel.app/api/medicines');
                 const data = await res.json();
                 setMedicines(data);
             } catch (error) {

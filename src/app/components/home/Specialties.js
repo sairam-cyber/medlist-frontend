@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'; // 1. Import Link
 import { 
     FaUserMd, 
     FaFemale, 
@@ -20,26 +21,25 @@ import {
     FaRibbon 
 } from 'react-icons/fa';
 
-// Fixed: Removed 'alt' from the destructured props
+// Fixed: Changed component to use <Link> instead of <div>
 const SpecialtyCard = ({ href, icon, title }) => {
-    const router = useRouter();
-
+    
     const handleSpecialtyClick = () => {
         // Store the selected specialty in localStorage
         localStorage.setItem('selectedSpecialty', title);
-        // Navigate to the doctorsec page
-        router.push(href);
+        // Note: Navigation will be handled by the <Link> component
     };
 
     return (
-        <div className="specialty-link" onClick={handleSpecialtyClick}>
+        // 2. Use the Link component for navigation
+        <Link href={href} className="specialty-link" onClick={handleSpecialtyClick}>
             <div className="specialty-card">
                 <div className="specialty-icon">
                     {icon}
                 </div>
                 <p>{title}</p>
             </div>
-        </div>
+        </Link>
     );
 };
 

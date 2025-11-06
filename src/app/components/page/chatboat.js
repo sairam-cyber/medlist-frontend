@@ -42,7 +42,7 @@ export default function Chatbot() {
 
         try {
             // Call your new backend endpoint
-            const res = await fetch('http://localhost:5000/api/chatbot', {
+            const res = await fetch('https://medlist-backend.vercel.app/api/chatbot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -33,7 +33,7 @@ export default function Profile() {
                 
                 try {
                     // Fetch full profile from the backend using the stored user ID
-                    const res = await fetch(`http://localhost:5000/api/users/profile/${parsedInfo._id}`);
+                    const res = await fetch(`https://medlist-backend.vercel.app/api/users/profile/${parsedInfo._id}`);
                     if (!res.ok) throw new Error('Could not fetch user data.');
                     
                     const fullUserData = await res.json();
@@ -65,7 +65,7 @@ export default function Profile() {
         
         try {
             // Send updated data to the backend
-            const res = await fetch(`http://localhost:5000/api/users/profile/${user._id}`, {
+            const res = await fetch(`https://medlist-backend.vercel.app/api/users/${user._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(editForm),

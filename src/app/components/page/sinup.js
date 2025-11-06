@@ -36,7 +36,7 @@ export default function SignUp() {
         try {
             console.log('Attempting to send request to backend...');
             
-            const res = await fetch('http://localhost:5000/api/users/register', {
+            const res = await fetch('https://medlist-backend.vercel.app/api/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

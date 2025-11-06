@@ -38,7 +38,7 @@ export default function HealthCampRegistration() {
                 age: Number(formData.age)
             };
 
-            const res = await fetch('http://localhost:5000/api/health-camps/register', {
+            const res = await fetch('https://medlist-backend.vercel.app/api/health-camps/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(registrationData),

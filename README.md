@@ -142,7 +142,7 @@ From the root directory, run:
 npm run server
 
 
-The backend will be running on http://localhost:5000.
+The backend will be running on https://medlist-backend.vercel.app.
 
 Start the Frontend Development Server:
 In a new terminal, navigate to the src folder and run:

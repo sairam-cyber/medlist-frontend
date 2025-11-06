@@ -13,7 +13,7 @@ export default function LabTest() {
     useEffect(() => {
         const fetchLabTests = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/lab-tests');
+                const res = await fetch('https://medlist-backend.vercel.app/api/lab-tests');
                 const data = await res.json();
                 setLabTests(data);
             } catch (error) {

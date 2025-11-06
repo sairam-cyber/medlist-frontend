@@ -21,7 +21,7 @@ export default function Login() {
 
         try {
             // 1. Send the user's email and password to the backend login endpoint.
-            const res = await fetch('http://localhost:5000/api/users/login', {
+            const res = await fetch('https://medlist-backend.vercel.app/api/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),

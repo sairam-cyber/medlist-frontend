@@ -56,7 +56,7 @@ export default function AppointmentForm() {
 
         try {
             // The fetch call to your backend API endpoint
-            const res = await fetch('http://localhost:5000/api/lab-tests/book', {
+            const res = await fetch('https://medlist-backend.vercel.app/api/lab-tests/book', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bookingData),

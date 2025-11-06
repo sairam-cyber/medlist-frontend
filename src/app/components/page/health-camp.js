@@ -13,7 +13,7 @@ export default function HealthCamp() {
     useEffect(() => {
         const fetchCamps = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/health-camps');
+                const res = await fetch('https://medlist-backend.vercel.app/api/health-camps');
                 const data = await res.json();
                 setCamps(data);
             } catch (error) {
