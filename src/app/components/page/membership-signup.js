@@ -88,7 +88,8 @@ export default function MembershipSignup() {
                         <h1>Complete Your Membership</h1>
                         {selectedPlan && (
                             <div className="selected-plan-info">
-                                <h3>You've selected the <strong>{selectedPlan.planName}</strong> plan for ₹{selectedPlan.price}/year</h3>
+                                {/* Fixed: Replaced ' with &apos; */}
+                                <h3>You&apos;ve selected the <strong>{selectedPlan.planName}</strong> plan for ₹{selectedPlan.price}/year</h3>
                             </div>
                         )}
                     </div>

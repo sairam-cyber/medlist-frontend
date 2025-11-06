@@ -78,10 +78,12 @@ export default function Donation() {
                         essential medical care, organize health camps in underserved communities, and
                         offer free medicines to those who cannot afford them.
                     </p>
-                    <h3>Your Donation's Impact:</h3>
+                    {/* Fixed: Replaced ' with &apos; */}
+                    <h3>Your Donation&apos;s Impact:</h3>
                     <ul className="impact-list">
                         <li><strong>₹500:</strong> Provides a consultation and medicines for one patient.</li>
-                        <li><strong>₹1000:</strong> Supports a child's vaccination for a year.</li>
+                        {/* Fixed: Replaced ' with &apos; */}
+                        <li><strong>₹1000:</strong> Supports a child&apos;s vaccination for a year.</li>
                         <li><strong>₹2500:</strong> Funds a basic health check-up for a family of four.</li>
                     </ul>
                 </div>

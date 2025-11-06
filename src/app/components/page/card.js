@@ -5,6 +5,7 @@ import Navbar from '../Navbar';
 import QRCodeModal from './QRCodeModal'; // Import the modal
 import '../../components/card/card.css';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'; // Import Image
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -130,7 +131,6 @@ export default function Cart() {
                 onPaymentSuccess={handlePaymentSuccess}
             />
             <div className="cart-page">
-                {/* ... Rest of your cart page JSX remains the same ... */}
                  <h1>Your Shopping Cart</h1>
                 {cartItems.length === 0 ? (
                     <div className="empty-cart">
@@ -141,7 +141,14 @@ export default function Cart() {
                         <div className="cart-items">
                             {cartItems.map(item => (
                                 <div key={item._id} className="cart-item">
-                                    <img src={item.image} alt={item.name} className="item-image" />
+                                    {/* Fixed: Replaced <img> with next/image <Image /> */}
+                                    <Image
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="item-image"
+                                        width={100} // Added width
+                                        height={100} // Added height
+                                    />
                                     <div className="item-details">
                                         <h3>{item.name}</h3>
                                         <p className="item-price">₹{item.price.toFixed(2)}</p>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import '../../components/bymedicine/bymedicine.css';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'; // Import Image
 
 export default function ByMedicine() {
     const [medicines, setMedicines] = useState([]);
@@ -72,7 +73,15 @@ export default function ByMedicine() {
                     {filteredMedicines.length > 0 ? (
                         filteredMedicines.map(med => (
                             <div key={med._id} className="medicine-card">
-                                <img src={med.image} alt={med.name} className="medicine-image" />
+                                {/* Fixed: Replaced <img> with next/image <Image /> */}
+                                <Image
+                                    src={med.image}
+                                    alt={med.name}
+                                    className="medicine-image"
+                                    width={180} // Added width
+                                    height={180} // Added height
+                                    style={{ objectFit: 'contain' }}
+                                />
                                 <div className="medicine-info">
                                     <h3 className="medicine-name">{med.name}</h3>
                                     <p className="medicine-desc">{med.description}</p>

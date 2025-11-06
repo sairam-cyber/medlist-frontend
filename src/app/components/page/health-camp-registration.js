@@ -54,6 +54,8 @@ export default function HealthCampRegistration() {
                 alert(`Registration failed: ${data.message}`);
             }
         } catch (error) {
+            // Fixed: Use the 'error' variable to log it
+            console.error("Registration failed:", error);
             alert('An error occurred. Please try again.');
         }
     };
