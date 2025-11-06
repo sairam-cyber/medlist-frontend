@@ -5,22 +5,30 @@ import Image from 'next/image';
 import '../QRCodeModal/QRCodeModal.css';
 
 const QRCodeModal = ({ show, onClose, amount, paymentFor, onPaymentSuccess }) => {
-  if (!show) {
-    return null;
-  }
-
-  // Effect to handle the Escape key to close the modal
+  
+  // Fixed: Moved the useEffect Hook to the top, before any conditional returns.
   useEffect(() => {
+    // Effect to handle the Escape key to close the modal
     const handleEsc = (event) => {
       if (event.keyCode === 27) {
         onClose();
       }
     };
-    window.addEventListener('keydown', handleEsc);
+    
+    // Only add the event listener if the modal is showing
+    if (show) {
+      window.addEventListener('keydown', handleEsc);
+    }
+    
+    // Cleanup function to remove the listener
     return () => {
       window.removeEventListener('keydown', handleEsc);
     };
-  }, [onClose]);
+  }, [show, onClose]); // Added 'show' as a dependency
+
+  if (!show) {
+    return null;
+  }
 
   return (
     <div className="qr-modal-overlay" onClick={onClose}>

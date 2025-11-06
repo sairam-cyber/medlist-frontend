@@ -20,7 +20,8 @@ import {
     FaRibbon 
 } from 'react-icons/fa';
 
-const SpecialtyCard = ({ href, icon, alt, title }) => {
+// Fixed: Removed 'alt' from the destructured props
+const SpecialtyCard = ({ href, icon, title }) => {
     const router = useRouter();
 
     const handleSpecialtyClick = () => {
@@ -67,6 +68,7 @@ const Specialties = () => {
             <h2>Browse by Specialties</h2>
             <div className="specialties-grid">
                 {specialties.map((specialty, index) => (
+                    // We can still pass 'alt' here, but SpecialtyCard doesn't use it.
                     <SpecialtyCard key={index} {...specialty} />
                 ))}
             </div>
