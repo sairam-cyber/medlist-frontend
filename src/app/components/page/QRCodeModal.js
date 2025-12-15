@@ -60,7 +60,7 @@ const QRCodeModal = ({ show, onClose, amount, paymentFor, onPaymentSuccess }) =>
           </div>
         </div>
         <div className="qr-modal-footer">
-          <p>Powered by Medlist Secure Payments</p>
+          <p>Powered by Medlist Payments</p>
         </div>
       </div>
     </div>
