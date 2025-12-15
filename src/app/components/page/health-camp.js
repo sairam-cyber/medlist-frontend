@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../Navbar';
 import '../../components/health-camp/health-camp.css';
-import Image from 'next/image'; // Import Image
+import Image from 'next/image';
+import { mockHealthCamps } from '../../utils/mockData';
 
 export default function HealthCamp() {
     const router = useRouter();
@@ -15,9 +16,16 @@ export default function HealthCamp() {
             try {
                 const res = await fetch('https://medlist-backend.vercel.app/api/health-camps');
                 const data = await res.json();
-                setCamps(data);
+                // Use API data if available, otherwise use mock data
+                if (data && data.length > 0) {
+                    setCamps(data);
+                } else {
+                    setCamps(mockHealthCamps);
+                }
             } catch (error) {
-                console.error("Failed to fetch health camps:", error);
+                console.error("Failed to fetch health camps, using mock data:", error);
+                // Use mock data as fallback
+                setCamps(mockHealthCamps);
             }
         };
         fetchCamps();
@@ -32,12 +40,11 @@ export default function HealthCamp() {
         <div className="health-camp-page">
             <Navbar />
             <header className="camp-header">
-                {/* Fixed Image 1 */}
-                <Image 
-                    src="/image/00 img.jpg" 
-                    alt="Health Camp" 
-                    className="header-image" 
-                    fill 
+                <Image
+                    src="/image/health-camp-banner.jpg"
+                    alt="Health Camp"
+                    className="header-image"
+                    fill
                     style={{ objectFit: 'cover' }}
                     priority
                 />
@@ -50,20 +57,28 @@ export default function HealthCamp() {
                 <h2 className="section-title">Upcoming Camps</h2>
                 <div className="camps-grid">
                     {camps.map((camp) => (
-                        <div key={camp._id} className="camp-card">
-                            {/* Fixed Image 2 */}
-                            <Image 
-                                src={camp.image} 
-                                alt={camp.title} 
-                                className="camp-card-image" 
-                                width={300} 
-                                height={200}
-                                style={{ objectFit: 'cover' }}
-                            />
+                        <div key={camp._id} className="camp-card-simple">
                             <div className="camp-card-content">
                                 <h3>{camp.title}</h3>
-                                <p>📍 {camp.location}</p>
-                                <p>🗓️ {camp.date}</p>
+                                <div className="camp-details">
+                                    <p className="camp-location">
+                                        <span className="icon">📍</span>
+                                        {camp.location}
+                                    </p>
+                                    <p className="camp-date">
+                                        <span className="icon">🗓️</span>
+                                        {camp.date}
+                                    </p>
+                                    {camp.time && (
+                                        <p className="camp-time">
+                                            <span className="icon">🕒</span>
+                                            {camp.time}
+                                        </p>
+                                    )}
+                                    {camp.description && (
+                                        <p className="camp-description">{camp.description}</p>
+                                    )}
+                                </div>
                                 <button className="register-btn" onClick={() => handleRegister(camp)}>
                                     Register Now
                                 </button>

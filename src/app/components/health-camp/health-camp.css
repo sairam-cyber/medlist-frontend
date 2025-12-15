@@ -109,6 +109,83 @@
     background-color: #0fa3a8;
 }
 
+/* Simple Camp Card (No Images) */
+.camp-card-simple {
+    background-color: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.camp-card-simple:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border-color: #15C6CC;
+}
+
+.camp-card-simple .camp-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.camp-card-simple h3 {
+    font-size: 22px;
+    margin: 0 0 10px 0;
+    color: #15C6CC;
+    font-weight: bold;
+}
+
+.camp-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.camp-details p {
+    color: #555;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.camp-details .icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.camp-location {
+    font-weight: 500;
+}
+
+.camp-date {
+    font-weight: 500;
+    color: #15C6CC;
+}
+
+.camp-time {
+    font-weight: 500;
+}
+
+.camp-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 10px 0;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 5px !important;
+}
+
+.camp-card-simple .register-btn {
+    margin-top: 10px;
+}
+
+
 /* Gallery Section */
 .gallery-section {
     padding: 50px 0;
@@ -133,6 +210,34 @@
 @media (max-width: 768px) {
     .header-text h1 {
         font-size: 36px;
+    }
+
+    .header-text p {
+        font-size: 16px;
+    }
+
+    .camps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-text h1 {
+        font-size: 28px;
+    }
+
+    .camps-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .main-camp-content {
+        padding: 0 15px;
     }
 }
 
@@ -218,7 +323,9 @@
     color: #555;
 }
 
-.form-input, .form-select, .form-textarea {
+.form-input,
+.form-select,
+.form-textarea {
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -226,7 +333,9 @@
     transition: border-color 0.3s ease;
 }
 
-.form-input:focus, .form-select:focus, .form-textarea:focus {
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
     outline: none;
     border-color: #15C6CC;
     box-shadow: 0 0 5px rgba(21, 198, 204, 0.2);
@@ -244,7 +353,8 @@
     margin-top: 20px;
 }
 
-.submit-btn, .cancel-btn {
+.submit-btn,
+.cancel-btn {
     padding: 15px 30px;
     border: none;
     border-radius: 5px;
@@ -281,16 +391,17 @@
         margin: 20px;
         padding: 20px;
     }
-    
+
     .form-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .form-actions {
         flex-direction: column;
     }
-    
-    .submit-btn, .cancel-btn {
+
+    .submit-btn,
+    .cancel-btn {
         width: 100%;
     }
 }

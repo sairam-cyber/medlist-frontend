@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import '../../components/bymedicine/bymedicine.css';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image'; // Import Image
+import { mockMedicines } from '../../utils/mockData'; // Import mock data 
 
 export default function ByMedicine() {
     const [medicines, setMedicines] = useState([]);
@@ -12,22 +12,33 @@ export default function ByMedicine() {
     const [cart, setCart] = useState([]);
     const router = useRouter();
 
-    // Fetch medicines from your new backend API
+    // --- FIX: Add hasMounted state ---
+    const [hasMounted, setHasMounted] = useState(false);
+
     useEffect(() => {
         const fetchMedicines = async () => {
             try {
                 const res = await fetch('https://medlist-backend.vercel.app/api/medicines');
                 const data = await res.json();
-                setMedicines(data);
+                // Use API data if available, otherwise use mock data
+                if (data && data.length > 0) {
+                    setMedicines(data);
+                } else {
+                    setMedicines(mockMedicines);
+                }
             } catch (error) {
-                console.error("Failed to fetch medicines:", error);
+                console.error("Failed to fetch medicines, using mock data:", error);
+                // Use mock data as fallback
+                setMedicines(mockMedicines);
             }
         };
         fetchMedicines();
     }, []);
 
-    // Load cart from localStorage when the component mounts
     useEffect(() => {
+        // --- FIX: Set mounted to true on client ---
+        setHasMounted(true);
+
         const savedCart = localStorage.getItem('cart');
         if (savedCart) {
             setCart(JSON.parse(savedCart));
@@ -65,7 +76,8 @@ export default function ByMedicine() {
                         />
                     </div>
                     <button className="cart-button" onClick={() => router.push('/cart')}>
-                        Go to Cart ({cart.length})
+                        {/* --- FIX: Show 0 before mount, and real length after --- */}
+                        Go to Cart ({hasMounted ? cart.length : 0})
                     </button>
                 </header>
 
@@ -73,15 +85,6 @@ export default function ByMedicine() {
                     {filteredMedicines.length > 0 ? (
                         filteredMedicines.map(med => (
                             <div key={med._id} className="medicine-card">
-                                {/* Fixed: Replaced <img> with next/image <Image /> */}
-                                <Image
-                                    src={med.image}
-                                    alt={med.name}
-                                    className="medicine-image"
-                                    width={180} // Added width
-                                    height={180} // Added height
-                                    style={{ objectFit: 'contain' }}
-                                />
                                 <div className="medicine-info">
                                     <h3 className="medicine-name">{med.name}</h3>
                                     <p className="medicine-desc">{med.description}</p>

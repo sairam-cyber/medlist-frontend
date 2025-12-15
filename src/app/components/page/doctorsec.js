@@ -5,6 +5,7 @@ import Navbar from '../Navbar';
 import '../../components/doctorsec/doctorsec.css';
 import { useRouter } from 'next/navigation'; // Make sure useRouter is imported
 import Image from 'next/image'; // Import Image
+import { mockDoctors } from '../../utils/mockData'; // Import mock data
 
 export default function DoctorSec() {
     // ... (rest of your state and useEffects) ...
@@ -19,7 +20,7 @@ export default function DoctorSec() {
     });
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [showAppointmentModal, setShowAppointmentModal] = useState(false);
-    
+
     const [selectedSlot, setSelectedSlot] = useState({ day: null, time: null });
 
     const [selectedSpecialty, setSelectedSpecialty] = useState('');
@@ -33,9 +34,16 @@ export default function DoctorSec() {
             try {
                 const res = await fetch('https://medlist-backend.vercel.app/api/doctors');
                 const data = await res.json();
-                setAllDoctors(data);
+                // Use API data if available, otherwise use mock data
+                if (data && data.length > 0) {
+                    setAllDoctors(data);
+                } else {
+                    setAllDoctors(mockDoctors);
+                }
             } catch (error) {
-                console.error("Failed to fetch doctors:", error);
+                console.error("Failed to fetch doctors, using mock data:", error);
+                // Use mock data as fallback
+                setAllDoctors(mockDoctors);
             }
         };
 
@@ -192,12 +200,12 @@ export default function DoctorSec() {
                             {filteredDoctors.map(doctor => (
                                 <div key={doctor._id || doctor.id} className="doctor-card">
                                     {/* Fixed Image 1 */}
-                                    <Image 
-                                        src={doctor.image} 
-                                        alt={doctor.name} 
-                                        className="doctor-image" 
-                                        width={150} 
-                                        height={150} 
+                                    <Image
+                                        src={doctor.image}
+                                        alt={doctor.name}
+                                        className="doctor-image"
+                                        width={150}
+                                        height={150}
                                     />
                                     <div className="doctor-info">
                                         {/* ... (doctor info) ... */}
@@ -210,7 +218,7 @@ export default function DoctorSec() {
                                         <p className="location">📍 {doctor.location}</p>
                                         <p className="consultation-type">
                                             {doctor.consultationType === 'Both' ? '🏥 & 💻' :
-                                             doctor.consultationType === 'Hospital' ? '🏥' : '💻'}
+                                                doctor.consultationType === 'Hospital' ? '🏥' : '💻'}
                                         </p>
                                         <p className="fees">💰 {doctor.fees}</p>
                                         <p className="languages">🗣️ {doctor.languages.join(', ')}</p>
@@ -239,11 +247,11 @@ export default function DoctorSec() {
                         <div className="modal-content">
                             <div className="doctor-summary">
                                 {/* Fixed Image 2 */}
-                                <Image 
-                                    src={selectedDoctor.image} 
-                                    alt={selectedDoctor.name} 
-                                    width={80} 
-                                    height={80} 
+                                <Image
+                                    src={selectedDoctor.image}
+                                    alt={selectedDoctor.name}
+                                    width={80}
+                                    height={80}
                                 />
                                 <div>
                                     <h3>{selectedDoctor.name}</h3>

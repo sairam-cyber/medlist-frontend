@@ -54,7 +54,12 @@ const Banner = () => {
                 <div className="steps-container">
                     <div className="step">
                         <label htmlFor="speciality">Select Speciality</label>
-                        <select id="speciality" value={speciality} onChange={handleSpecialityChange}>
+                        <select 
+                            id="speciality" 
+                            value={speciality} 
+                            onChange={handleSpecialityChange}
+                            suppressHydrationWarning={true} // <-- ADD THIS
+                        >
                             <option value="" disabled>Enter Speciality</option>
                             {specialities.map(spec => (
                                 <option key={spec} value={spec}>{spec}</option>
@@ -76,6 +81,7 @@ const Banner = () => {
                             placeholder="Search location"
                             value={location}
                             onChange={handleLocationChange}
+                            suppressHydrationWarning={true} // <-- ADD THIS
                         />
                         <datalist id="location-list">
                             {locations.map(loc => (
@@ -84,7 +90,11 @@ const Banner = () => {
                         </datalist>
                     </div>
                 </div>
-                <button className="submit-btn" onClick={handleSubmit}>
+                <button 
+                    className="submit-btn" 
+                    onClick={handleSubmit}
+                    suppressHydrationWarning={true} // <-- ADD THIS
+                >
                     Submit
                 </button>
             </div>

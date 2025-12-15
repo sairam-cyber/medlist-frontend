@@ -50,36 +50,47 @@
 }
 
 .test-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 25px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 30px 25px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     background: white;
-    min-height: 200px;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+}
+
+.test-card::before {
+    content: '🧪';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    opacity: 0.3;
 }
 
 .test-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.test-icon {
-    width: 150px;  /* Increased from 60px */
-    height: 150px; /* Increased from 60px */
-    margin: 0 auto 15px;
-    object-fit: cover; /* Ensures the image fills the space well */
-    border-radius: 8px; /* Adds nice rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #f0ad4e;
 }
 
 .test-card h3 {
     font-size: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: #333;
+    padding-right: 40px;
+}
+
+.test-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f0ad4e;
+    margin: 15px 0;
 }
 
 .book-now-btn {
